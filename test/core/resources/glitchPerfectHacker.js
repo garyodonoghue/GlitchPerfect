@@ -103,6 +103,25 @@ function getRating(timeInMilliSeconds){
 	return starRating;
 }
 
+function myTimer() {
+	var dotString = "";
+	if(dots < 4){
+		for(var i = dots; i > 0; i--){
+			dotString = dotString + ".";
+		}
+	}else{
+		dots = 0;
+	}
+	$("#addDots").html(dotString);
+	dots++;
+}
+
+var dotsTimer = setInterval(function(){
+	myTimer()
+},700);
+
+var dots = 0;
+
 $(document).ready(function() {
 	$('span.stars').stars();
 	assignNumbersToButtons();
