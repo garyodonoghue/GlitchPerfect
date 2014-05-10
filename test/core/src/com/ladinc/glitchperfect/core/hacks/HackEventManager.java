@@ -14,7 +14,7 @@ public class HackEventManager
 	public static MCP moreControllers;
 	
 	//public static enum Hacks {removeScreenClear, disableSword, increaseEnemySpawnRate, increaseEnemySpeed, decreaseHumanSpeed, invertControls}
-	public static enum Hacks { increaseEnemySpeed, invertControls}
+	public static enum Hacks { increaseEnemySpeed, invertControls, increaseEnemySpawnRate}
 	
 	public static void recievedHackEvent(String ratingStr, String id)
 	{
@@ -38,9 +38,18 @@ public class HackEventManager
 				invertControlsOfHuman(rating);
 				leaveHeartbeatMessage("Inverted Controls of players", rating, id);
 				break;
+			case increaseEnemySpawnRate:
+				increaseEnemySpawnRate(rating);
+				leaveHeartbeatMessage("Increased Enemy Spawn rate", rating, id);
+				break;
 		}
 	}
 	
+	private static void increaseEnemySpawnRate(int rating) {
+		GameScreen.AI_CREATION_TIMER = GameScreen.AI_CREATION_TIMER / (3/(rating+1)); 
+		
+	}
+
 	private static void invertControlsOfHuman(int rating)
 	{
 		for(HockeyPlayer hp : GameScreen.hockeyPlayerList)
