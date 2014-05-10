@@ -1,0 +1,39 @@
+package com.ladinc.glitchperfect.core.collision;
+
+import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
+import com.ladinc.glitchperfectcore.objects.HockeyPlayer;
+
+public class CollisionInfo {
+	
+	public String text;
+	public CollisionObjectType type;
+	
+	public HockeyPlayer player;
+	
+	public Side side;
+	
+	
+	public CollisionInfo(String text, CollisionObjectType type)
+	{
+		this.text = text;		
+		this.type = type;
+	}
+	
+	public CollisionInfo(String text, CollisionObjectType type, Side side)
+	{
+		this.text = text;		
+		this.type = type;
+		this.side = side;
+	}
+	
+	public CollisionInfo(String text, CollisionObjectType type, HockeyPlayer player)
+	{
+		this.text = text;		
+		this.type = type;
+		this.player = player;
+	}
+	
+	public static enum CollisionObjectType{Rink, Goal, Player, ScoreZone, Puck};
+
+}
+
