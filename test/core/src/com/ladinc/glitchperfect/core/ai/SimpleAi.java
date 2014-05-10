@@ -43,29 +43,39 @@ public class SimpleAi implements
 		return false;
 	}
 
-	public Vector2 getMovementofAItowardsPlayer(Vector2 aiLocation, Vector2 playerLocation) {
-		Vector2 temp = new Vector2(aiLocation.x - playerLocation.x, aiLocation.y - playerLocation.y);
-		if(Math.abs(temp.x) > Math.abs(temp.y)){
-			if(temp.x > 1){
-				temp.x = 1;
-				temp.y = temp.y/temp.x;
-			}
-			else{
-				temp.x = -1;
-				temp.y = temp.y/temp.x;
-			}
+	public void getMovementofAItowardsPlayer(Vector2 aiLocation, Vector2 playerLocation) {
+		
+		Vector2 temp = new Vector2(playerLocation.x - aiLocation.x, (playerLocation.y - aiLocation.y));
+		
+		int direcitonX = 1;
+		int directionY = 1;
+		
+		if(temp.x < 1)
+		{
+			direcitonX = -1;
 		}
-		else{
-			if(temp.y > 1){
-				temp.y = 1;
-				temp.x = temp.x/temp.y;				
-			}
-			else{
-				temp.y = -1;
-				temp.x = temp.x/temp.y;
-			}
+		
+		if(temp.y < 1)
+		{
+			directionY = -1;
 		}
-		return temp;
+		
+		float absX = Math.abs(temp.x);
+		float absY = Math.abs(temp.y);
+		
+		if(absX > absY)
+		{
+			temp.x = direcitonX * 1;
+			temp.y = directionY * (absY/absX);
+		}
+		else
+		{
+
+			temp.y = directionY * 1;
+			temp.x = direcitonX * (absX/absY);				
+
+		}
+		leftMovement =  temp;
 
 	}
 

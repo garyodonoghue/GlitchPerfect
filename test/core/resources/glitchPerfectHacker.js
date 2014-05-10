@@ -18,9 +18,21 @@ var userSequence = [];
 
 var startTime = 0;
 
+$.fn.stars = function() {
+    return $(this).each(function() {
+        // Get the value
+        var val = parseFloat($(this).html());
+        // Make sure that the value is in 0 - 5 range, multiply to get width
+        var size = Math.max(0, (Math.min(5, val))) * 16;
+        // Create stars holder
+        var $span = $('<span />').width(size);
+        // Replace the numerical value with stars
+        $(this).html($span);
+    });
+}
+
 function assignNumbersToButtons(){
 	userSequence = [];
-	startTime = new Date().getTime();
 	tempInputs = JSON.parse(JSON.stringify(inputs));
 	tempNumbers = JSON.parse(JSON.stringify(numbers));
 	for(var loopingNumbersIndex = tempInputs.length; loopingNumbersIndex > 0; loopingNumbersIndex--){
@@ -30,6 +42,7 @@ function assignNumbersToButtons(){
 		var numberForSequence = removeAndReturnElementFromArray(tempNumbers, indexInNumbersArray);
 		var newNumber = assignNumberToButton(inputNameForSequence, numberForSequence);
 	}
+	startTime = new Date().getTime();
 }
 function assignNumberToButton(input, number){
 	$("#"+input).attr("value",""+number).html(number);
@@ -67,17 +80,20 @@ function isCorrectButtonAndRemoveFromArray(id){
 
 function sendRating(timeInMilliSeconds){
 	rating = getRating(timeInMilliSeconds);
+	$("#rating").html(rating);
+	$('span.stars').stars();
+	$("#timeTaken").html(timeInMilliSeconds/1000);
 	passEvent(rating);
 }
 
 function getRating(timeInMilliSeconds){
 	var starRating = 0;
 	var seconds = 3000;
-	if(timeInMilliSeconds < (seconds*0.40)){
+	if(timeInMilliSeconds < (seconds*0.50)){
 		starRating = 5;
-	}else if(timeInMilliSeconds < (seconds*0.60)){
+	}else if(timeInMilliSeconds < (seconds*0.62)){
 		starRating = 4;
-	}else if(timeInMilliSeconds < (seconds*0.75)){
+	}else if(timeInMilliSeconds < (seconds*0.77)){
 		starRating = 3;
 	}else if(timeInMilliSeconds < (seconds*0.90)){
 		starRating = 2;
@@ -88,5 +104,6 @@ function getRating(timeInMilliSeconds){
 }
 
 $(document).ready(function() {
+	$('span.stars').stars();
 	assignNumbersToButtons();
 });

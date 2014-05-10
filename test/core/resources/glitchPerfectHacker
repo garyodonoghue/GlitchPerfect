@@ -49,9 +49,9 @@
 			{
 				var obj = JSON.parse(respText);
 
-				if(obj.hasOwnProperty('redirect'))
+				if(obj.hasOwnProperty('message'))
 				{
-					window.location.href = obj.redirect + "?id=" + getId();
+					$("#message").html(obj.message);
 				}
 			}
 
@@ -85,7 +85,19 @@
 			</div>
 
 		   	<div data-role="content">	
-		   		<div id="codeTerminal" class="codeTerminal">Testing</div>
+		   		<div id="codeTerminal" class="codeTerminal">
+			   		<div>
+			   			<p>User Rating</p>
+			   		</div>
+			   		<div>
+			   			<p id="message">
+			   				Message to display here
+			   			</p>
+			   		</div>
+			   		<div>
+			   			<p>Stars: <span id="rating" class="stars">0</span> Time taken: <span id="timeTaken">0</span> seconds</p>
+			   		</div>
+		   		</div>
 		   		<fieldset id="buttonsUserPresses" class="ui-grid-d">
 		   			<div id="userInput1Parent" class="userInput ui-block-a">
 	   					<button type"button" id="userInput1" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
