@@ -18,6 +18,22 @@ var userSequence = [];
 
 var startTime = 0;
 
+var dotsTimer = setInterval(function(){
+	dotsTimerFunction();
+},700);
+
+var dots = 0;
+
+var userRatingVar = 0;
+var userRatingTimer = undefined;
+
+var zeroUserRatingString = "System.out.println('FAIL');";
+var oneUserRatingString = "gg";
+var twoUserRatingString = "\"I'm sorry. I'm afraid I can't do that.\"";
+var threeUserRatingString = "int hacks = 1;";
+var fourUserRatingString = "bool WIN = true;";
+var fiveUserRatingString = "bool theCakeIsALie = false;";
+
 $.fn.stars = function() {
     return $(this).each(function() {
         // Get the value
@@ -83,7 +99,39 @@ function sendRating(timeInMilliSeconds){
 	$("#rating").html(rating);
 	$('span.stars').stars();
 	$("#timeTaken").html(timeInMilliSeconds/1000);
+	setUserRatingTimeout(rating);
 	passEvent(rating);
+}
+
+function setUserRatingTimeout(){
+	userRatingVar = 0;
+	clearInterval(userRatingTimer);
+	if(rating == 0){
+		userRatingString = zeroUserRatingString;
+	}else if(rating == 1){
+		userRatingString = oneUserRatingString;
+	}else if(rating == 2){
+		userRatingString = twoUserRatingString;
+	}else if(rating == 3){
+		userRatingString = threeUserRatingString;
+	}else if(rating == 4){
+		userRatingString = fourUserRatingString;
+	}else if(rating == 5){
+		userRatingString = fiveUserRatingString;
+	}
+	userRatingTimer = setInterval(function(){
+		userRatingTimerFunction();
+	},70);
+}
+
+function userRatingTimerFunction(){
+	if(userRatingVar > userRatingString.length){
+		userRatingVar = 0;
+		clearInterval(userRatingTimer);
+	}else{
+		$("#userRating").html(userRatingString.substring(0, userRatingVar));
+		userRatingVar++;
+	}
 }
 
 function getRating(timeInMilliSeconds){
@@ -103,7 +151,7 @@ function getRating(timeInMilliSeconds){
 	return starRating;
 }
 
-function myTimer() {
+function dotsTimerFunction() {
 	var dotString = "";
 	if(dots < 4){
 		for(var i = dots; i > 0; i--){
@@ -113,14 +161,9 @@ function myTimer() {
 		dots = 0;
 	}
 	$("#addDots").html(dotString);
+	$("#addDots2").html(dotString);
 	dots++;
 }
-
-var dotsTimer = setInterval(function(){
-	myTimer()
-},700);
-
-var dots = 0;
 
 $(document).ready(function() {
 	$('span.stars').stars();

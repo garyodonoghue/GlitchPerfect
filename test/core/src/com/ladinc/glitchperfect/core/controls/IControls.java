@@ -20,6 +20,8 @@ public interface IControls
 	
 	public Identifier getIdentifier();
 	
+	public boolean getStartPressed();
+	
 	//TODO: Add start etc
 
 }

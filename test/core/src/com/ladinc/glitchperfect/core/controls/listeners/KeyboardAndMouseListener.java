@@ -22,6 +22,8 @@ public class KeyboardAndMouseListener implements InputProcessor
 	
 	int mouseLeft = Input.Buttons.LEFT;
 	
+	int startKey = Input.Keys.ENTER;
+	
 	boolean upKeyPressed = false;
 	boolean downKeyPressed = false;
 	boolean leftKeyPressed = false;
@@ -52,6 +54,10 @@ public class KeyboardAndMouseListener implements InputProcessor
 		{
 			controls.setMovementX(1.0f);
 			rightKeyPressed = true;
+		}
+		else if(keycode == startKey)
+		{
+			controls.startPressed = true;
 		}
 		
 		return false;
@@ -85,6 +91,10 @@ public class KeyboardAndMouseListener implements InputProcessor
 			rightKeyPressed = false;
 			if(!leftKeyPressed)
 				controls.setMovementX(0.0f);
+		}
+		else if(keycode == startKey)
+		{
+			controls.startPressed = false;
 		}
 		
 		return false;

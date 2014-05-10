@@ -14,6 +14,9 @@ public class OuyaListener extends GenericControllerListener{
 		
 		this.RightAxisX = Ouya.AXIS_RIGHT_X;
 		this.RightAxisY= Ouya.AXIS_RIGHT_Y;
+		
+		this.startButton = 108;
+		this.startAlternative = 82;
 	}
 
 }

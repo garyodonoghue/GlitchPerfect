@@ -24,6 +24,9 @@ public class GenericControllerListener implements ControllerListener
 	public int RightAxisY;
 	
 	public int DiveButton;
+	
+	public int startButton;
+	public int startAlternative;
 
 	@Override
 	public boolean accelerometerMoved(Controller arg0, int arg1, Vector3 arg2) {
@@ -58,6 +61,8 @@ public class GenericControllerListener implements ControllerListener
 		
 		if(arg1 == DiveButton)
 			controls.setDiveButton(true);
+		if(arg1 == startButton || arg1 == startAlternative)
+			controls.startPressed = true;
 		
 		
 		return false;
@@ -67,6 +72,8 @@ public class GenericControllerListener implements ControllerListener
 	public boolean buttonUp(Controller arg0, int arg1) {
 		if(arg1 == DiveButton)
 			controls.setDiveButton(false);
+		if(arg1 == startButton || arg1 == startAlternative)
+			controls.startPressed = false;
 		
 		return false;
 	}

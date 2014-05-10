@@ -16,6 +16,8 @@ public class KeyboardAndMouseControls implements IControls
 	
 	public KeyboardAndMouseListener listener;
 	
+	public boolean startPressed = false;
+	
 	private Identifier ident = null;
 	
 	public KeyboardAndMouseControls(KeyboardAndMouseListener listen)
@@ -110,6 +112,18 @@ public class KeyboardAndMouseControls implements IControls
 	public void setIdentifier(Identifier identifier) {
 		this.ident = identifier;
 		
+	}
+
+	@Override
+	public boolean getStartPressed() 
+	{
+		if(startPressed)
+		{
+			startPressed = false;
+			return true;
+		}
+		
+		return false;
 	}
 
 }

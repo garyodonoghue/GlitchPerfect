@@ -51,7 +51,7 @@
 
 				if(obj.hasOwnProperty('message'))
 				{
-					clearInterval(myVar)
+					clearInterval(dotsTimer)
 					$("#message").html(obj.message);
 					assignNumbersToButtons();
 				}
@@ -73,7 +73,8 @@
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200) 
 					{
-						//Update Methods
+						clearInterval(dotsTimer)
+						$("#message").html("TEST");
 						assignNumbersToButtons();
 					}
 				}
@@ -89,7 +90,9 @@
 		   	<div data-role="content">	
 		   		<div id="codeTerminal" class="codeTerminal">
 			   		<div id="userRatingParent">
-			   			<p id="userRating">User Rating</p>
+			   			<p id="userRating">
+			   				Awaiting user input<span id="addDots2"><span>
+			   			</p>
 			   		</div>
 			   		<div id="messageParent">
 			   			<p id="message">

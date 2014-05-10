@@ -1,4 +1,4 @@
-package com.ladinc.pitchperfect.android;
+package com.ladinc.glitchperfect.android;
 
 import android.os.Bundle;
 

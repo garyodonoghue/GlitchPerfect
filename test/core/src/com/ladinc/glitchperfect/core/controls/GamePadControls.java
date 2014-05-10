@@ -19,6 +19,8 @@ public class GamePadControls implements IControls
 	
 	public boolean active;
 	
+	public boolean startPressed = false;
+	
 	private Identifier ident = null;
 	
 	public GamePadControls(GenericControllerListener listen)
@@ -161,6 +163,18 @@ public class GamePadControls implements IControls
 	public void setIdentifier(Identifier identifier) {
 		this.ident = identifier;
 		
+	}
+	
+	@Override
+	public boolean getStartPressed() 
+	{
+		if(startPressed)
+		{
+			startPressed = false;
+			return true;
+		}
+		
+		return false;
 	}
 
 
