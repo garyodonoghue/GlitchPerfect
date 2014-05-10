@@ -1,5 +1,7 @@
 package com.ladinc.glitchperfect.core.controls.listeners;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.ladinc.glitchperfect.core.hacks.HackEventManager;
@@ -8,6 +10,7 @@ import com.ladinc.mcp.interfaces.MCPContorllersListener;
 public class MCPListenerClient implements  MCPContorllersListener
 {
 
+	public static List<String> ids = new ArrayList<String>();
 	
 	
 	@Override
@@ -38,6 +41,8 @@ public class MCPListenerClient implements  MCPContorllersListener
 	public void pass(Map<String, String> header, Map<String, String> params,
 			Map<String, String> files) 
 	{
+		
+		
 		String rating;
 		String id;
 		
@@ -45,6 +50,11 @@ public class MCPListenerClient implements  MCPContorllersListener
 		{
 			rating = params.get("rating");
 			id = params.get("id");
+			
+			if(!ids.contains(id))
+			{
+				ids.add(id);
+			}
 			
 			HackEventManager.recievedHackEvent(rating, id);
 		}

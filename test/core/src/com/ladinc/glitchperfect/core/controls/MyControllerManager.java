@@ -51,6 +51,7 @@ public class MyControllerManager {
     	moreControllers.redirectOptions.add(new RedirectOption("glitchPerfectHacker", "Glitch Perfect Hacker"));
 
     	moreControllers.customLinks.add("glitchPerfectHacker");
+    	moreControllers.customLinks.add("stars.png");
         
         ipAddr = moreControllers.getAddressForClients();
         if(ipAddr.equals(":8888"))

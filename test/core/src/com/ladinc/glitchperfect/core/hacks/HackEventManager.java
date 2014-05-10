@@ -5,6 +5,7 @@ import java.util.Random;
 import org.json.simple.JSONObject;
 
 import com.badlogic.gdx.Gdx;
+import com.ladinc.glitchperfect.core.controls.listeners.MCPListenerClient;
 import com.ladinc.glitchperfect.core.objects.AIPlayer;
 import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.screens.GameScreen;
@@ -44,14 +45,17 @@ public class HackEventManager
 			case increaseEnemySpawnRate:
 				increaseEnemySpawnRate(rating);
 				leaveHeartbeatMessage("Increased Enemy Spawn rate", rating, id);
+				Gdx.app.error("HackEventManager", "increaseEnemySpawnRate");
 				break;
 			case disableSword:
 				disablePlayerSword(rating);
 				leaveHeartbeatMessage("Disabled player's sword", rating, id);
+				Gdx.app.error("HackEventManager", "disableSword");
 				break;
 			case removeScreenClear:
 				removeScreenClear(rating);
 				leaveHeartbeatMessage("Removing screen clear", rating, id);
+				Gdx.app.error("HackEventManager", "removeScreenClear");
 				break;
 			case decreaseHumanSpeed:
 				decreaseHumanSpeed(rating);
@@ -138,11 +142,19 @@ public class HackEventManager
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static void leaveHeartbeatMessage(String message, int rating, String id)
+	public static void leaveHeartbeatMessage(String message, int rating, String id)
 	{
 		JSONObject obj = new JSONObject();
-		obj.put("message", rating + " starts - " + message);
+		obj.put("message", message);
 		moreControllers.hearbeatResponses.put(id, obj);
+	}
+	
+	public static void leaveHeartbeatMessageAll(String message)
+	{
+		for(String id : MCPListenerClient.ids)
+		{
+			leaveHeartbeatMessage(message, 0, id);
+		}
 	}
 
 }

@@ -17,6 +17,7 @@ import com.ladinc.glitchperfect.GlitchPerfectGame;
 import com.ladinc.glitchperfect.core.ai.SimpleAi;
 import com.ladinc.glitchperfect.core.collision.CollisionHelper;
 import com.ladinc.glitchperfect.core.controls.IControls;
+import com.ladinc.glitchperfect.core.hacks.HackEventManager;
 import com.ladinc.glitchperfect.core.objects.AIPlayer;
 import com.ladinc.glitchperfect.core.objects.BoxProp;
 import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
@@ -219,6 +220,7 @@ public class GameScreen implements Screen {
 			if(hp.toBeKilled)
 			{
 				deathListHuman.add(hp);
+				HackEventManager.leaveHeartbeatMessageAll("die");
 			}
 		}
 		
