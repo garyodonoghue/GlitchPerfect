@@ -1,11 +1,13 @@
 #codeTerminal{
 	width:100%;
+	border: black;
 }
 
-.green{
+.green span{
 	background: green !important;
+	color: black !important;
 }
 
-.userButton{
-	font-size: 8em !important;
+.userInput span{
+	font-size: 4em !important;
 }

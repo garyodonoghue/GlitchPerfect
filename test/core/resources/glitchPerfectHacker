@@ -54,9 +54,9 @@
 				}
 			}
 
-			function startGame()
+			function passEvent(rating)
 			{
-				var url = "passEvent?rating="+getRating;
+				var url = "passEvent?rating="+rating+"&id="+getId();
 
 				var xmlhttp
 				if (window.XMLHttpRequest)
@@ -69,12 +69,12 @@
 				xmlhttp.onreadystatechange = function()
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200) 
-					{ 
-						//When name is registered. redirect to wait screen
-						window.location.href = "gameScreen?id=" + getId();
+					{
+						//Update Methods
+						assignNumbersToButtons();
 					}
 				}
-
+				
 				xmlhttp.send();
 			}
 		</script>
@@ -84,21 +84,21 @@
 			</div>
 
 		   	<div data-role="content">	
-		   		<p id="codeTerminal" class="codeTerminal">Testing</p>
+		   		<div id="codeTerminal" class="codeTerminal">Testing</div>
 		   		<fieldset class="ui-grid-d">
-		   			<div class=" ui-block-a">
+		   			<div id="userInput1Parent" class="userInput ui-block-a">
 	   					<button type"button" id="userInput1" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
 	   				</div>
-	   				<div class=" ui-block-b">
+	   				<div id="userInput2Parent" class="userInput ui-block-b">
 	   					<button type"button" id="userInput2" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
 	   				</div>
-	   				<div class=" ui-block-c">
+	   				<div id="userInput3Parent" class="userInput ui-block-c">
 	   					<button type"button" id="userInput3" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
 	   				</div>
-	   				<div class=" ui-block-d">
+	   				<div id="userInput4Parent" class="userInput ui-block-d">
 	   					<button type"button" id="userInput4" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
 	   				</div>
-	   				<div class=" ui-block-e">
+	   				<div id="userInput5Parent" class="userInput ui-block-e">
 	   					<button type"button" id="userInput5" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
 	   				</div>
 		   		</fieldset>
