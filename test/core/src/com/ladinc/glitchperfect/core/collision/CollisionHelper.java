@@ -73,7 +73,7 @@ public class CollisionHelper implements ContactListener{
         		}
         		
         		//if the hockey player's sword is disabled, dont kill the enemy
-    			if(hp.disableSwordTimer>0){
+    			if(hp.disableSwordTimer==0){
     				enemy.toBeKilled = true;
     				sound.play(1.0f);
     			}
