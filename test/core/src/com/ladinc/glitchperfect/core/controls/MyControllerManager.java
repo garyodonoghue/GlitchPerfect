@@ -9,6 +9,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
 import com.ladinc.glitchperfect.core.controls.listeners.KeyboardAndMouseListener;
 import com.ladinc.glitchperfect.core.controls.listeners.ListenerForNewControllers;
+import com.ladinc.glitchperfect.core.controls.listeners.MCPListenerClient;
 import com.ladinc.glitchperfect.core.controls.listeners.desktop.XboxListener;
 import com.ladinc.glitchperfect.core.controls.listeners.ouya.OuyaListener;
 import com.ladinc.glitchperfect.core.hacks.HackEventManager;
@@ -60,6 +61,8 @@ public class MyControllerManager {
         Gdx.app.error("Main-MCP", "Connection Address: " + ipAddr);
         
         HackEventManager.moreControllers = moreControllers;
+        
+        moreControllers.addMCPListener(new MCPListenerClient());
     }
 	
 	public void resetIdentifiers()
