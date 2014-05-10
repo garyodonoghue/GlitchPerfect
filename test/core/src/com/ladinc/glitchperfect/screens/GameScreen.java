@@ -17,6 +17,7 @@ import com.ladinc.glitchperfect.GlitchPerfectGame;
 import com.ladinc.glitchperfect.core.ai.SimpleAi;
 import com.ladinc.glitchperfect.core.controls.IControls;
 import com.ladinc.glitchperfect.core.objects.AIPlayer;
+import com.ladinc.glitchperfect.core.objects.BoxProp;
 import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.core.objects.StartingPosition;
 
@@ -40,6 +41,8 @@ public class GameScreen implements Screen {
 	private List<SimpleAi> AiList;
 	private float aiTimer;
 
+	private static final float GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE = 3.0f;
+	
 	public static Map<Integer, Vector2> listAIPositions;
 
 	public GameScreen(GlitchPerfectGame game) {
@@ -58,10 +61,10 @@ public class GameScreen implements Screen {
 
 		// Map used to reference the different spawning points for the AI
 		listAIPositions = new HashMap<Integer, Vector2>();
-		listAIPositions.put(1, new Vector2(10, 65));
+		listAIPositions.put(1, new Vector2(10, 102));
 		listAIPositions.put(2, new Vector2(10, 10));
-		listAIPositions.put(3, new Vector2(120, 65));
-		listAIPositions.put(4, new Vector2(120, 10));
+		listAIPositions.put(3, new Vector2(187, 102));
+		listAIPositions.put(4, new Vector2(187, 10));
 
 		this.debugRenderer = new Box2DDebugRenderer();
 	}
@@ -183,7 +186,12 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		world = new World(new Vector2(0.0f, 0.0f), true);
-		createPlayers();
+		new BoxProp(world, screenWidth, 1, new Vector2(3,
+						GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE)); // bottom
+		 	new BoxProp(world, screenWidth, 1, new Vector2(screenWidth / 2, 105)); // top
+		 		new BoxProp(world, 1, screenHeight, new Vector2(3, screenHeight / 2));// left
+		 	new BoxProp(world, 1, screenHeight, new Vector2(190, screenHeight / 2)); // right
+		 		  		createPlayers();
 	}
 
 	@Override
