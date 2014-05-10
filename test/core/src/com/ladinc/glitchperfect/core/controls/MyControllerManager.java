@@ -12,6 +12,7 @@ import com.ladinc.glitchperfect.core.controls.listeners.ListenerForNewController
 import com.ladinc.glitchperfect.core.controls.listeners.desktop.XboxListener;
 import com.ladinc.glitchperfect.core.controls.listeners.ouya.OuyaListener;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Identifier;
+import com.ladinc.mcp.MCP;
 
 public class MyControllerManager {
 
@@ -21,6 +22,10 @@ public class MyControllerManager {
 	public ArrayList<Identifier> usedIdentifiers;
 	public ArrayList<Identifier> orderedIdentifiers;
 	
+	public MCP moreControllers;
+	
+	public String ipAddr;
+	
 	public MyControllerManager()
 	{
 		inActiveControls = new ArrayList<IControls>();
@@ -29,6 +34,20 @@ public class MyControllerManager {
 		setUpControls();
 		resetIdentifiers();
 	}
+	
+	private void setUpMCP()
+    {
+    	moreControllers = MCP.tryCreateAndStartMCPWithPort(8888);
+
+        
+        ipAddr = moreControllers.getAddressForClients();
+        if(ipAddr.equals(":8888"))
+        {
+        	ipAddr = "No Network";
+        }
+        
+        Gdx.app.log("Main-MCP", "Connection Address: " + ipAddr);
+    }
 	
 	public void resetIdentifiers()
 	{
