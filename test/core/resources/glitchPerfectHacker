@@ -51,7 +51,7 @@
 
 				if(obj.hasOwnProperty('message'))
 				{
-					if(obj.message != "die"){
+					if(obj.message == "die"){
 						clearInterval(dotsTimer)
 						$("#message").html("Game Over - Player has died!");
 					}else{
@@ -86,10 +86,6 @@
 			}
 		</script>
 		<div data-role="page">
-			<div data-role="header">
-				<h1>MCP Poker - Wait Screen</h1>
-			</div>
-
 		   	<div data-role="content">	
 		   		<div id="codeTerminal" class="codeTerminal">
 			   		<div id="userRatingParent">
