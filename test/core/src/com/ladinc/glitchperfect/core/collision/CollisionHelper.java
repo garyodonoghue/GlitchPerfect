@@ -3,6 +3,7 @@ package com.ladinc.glitchperfect.core.collision;
 import java.awt.MultipleGradientPaint.ColorSpaceType;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -68,6 +69,8 @@ public class CollisionHelper implements ContactListener{
         		}
         		
         		enemy.toBeKilled = true;
+        		Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+        		sound.play(1.0f);
         	}
         	else if(checkIfCollisionIsOfCertainBodies(bodyAInfo, bodyBInfo, CollisionObjectType.Player, CollisionObjectType.Enemy))
         	{
