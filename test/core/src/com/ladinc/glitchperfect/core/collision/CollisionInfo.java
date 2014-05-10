@@ -1,7 +1,7 @@
 package com.ladinc.glitchperfect.core.collision;
 
+import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
-import com.ladinc.glitchperfectcore.objects.HockeyPlayer;
 
 public class CollisionInfo {
 	
