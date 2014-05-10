@@ -28,11 +28,11 @@ var userRatingVar = 0;
 var userRatingTimer = undefined;
 
 var zeroUserRatingString = "System.out.println('FAIL');";
-var oneUserRatingString = "int hacks = 10/0;";
-var twoUserRatingString = "int hacks = 10/0;";
-var threeUserRatingString = "int hacks = 10/0;";
-var fourUserRatingString = "int hacks = 10/0;";
-var fiveUserRatingString = "bool WIN = true;";
+var oneUserRatingString = "gg";
+var twoUserRatingString = "\"I'm sorry. I'm afraid I can't do that.\"";
+var threeUserRatingString = "int hacks = 1;";
+var fourUserRatingString = "bool WIN = true;";
+var fiveUserRatingString = "bool theCakeIsALie = false;";
 
 $.fn.stars = function() {
     return $(this).each(function() {
@@ -105,6 +105,7 @@ function sendRating(timeInMilliSeconds){
 
 function setUserRatingTimeout(){
 	userRatingVar = 0;
+	clearInterval(userRatingTimer);
 	if(rating == 0){
 		userRatingString = zeroUserRatingString;
 	}else if(rating == 1){
@@ -136,7 +137,7 @@ function userRatingTimerFunction(){
 function getRating(timeInMilliSeconds){
 	var starRating = 0;
 	var seconds = 3000;
-	if(timeInMilliSeconds < (seconds*1.50)){
+	if(timeInMilliSeconds < (seconds*0.50)){
 		starRating = 5;
 	}else if(timeInMilliSeconds < (seconds*0.62)){
 		starRating = 4;
@@ -160,6 +161,7 @@ function dotsTimerFunction() {
 		dots = 0;
 	}
 	$("#addDots").html(dotString);
+	$("#addDots2").html(dotString);
 	dots++;
 }
 
