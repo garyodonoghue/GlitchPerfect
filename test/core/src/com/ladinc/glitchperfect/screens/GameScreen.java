@@ -45,6 +45,8 @@ public class GameScreen implements Screen {
 	private static final float GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE = 3.0f;
 	
 	public static Map<Integer, Vector2> listAIPositions;
+	public static float removeScreenClearTimer = 0f;
+	private static float delta = 0f;
 
 	public GameScreen(GlitchPerfectGame game) {
 		this.game = game;
@@ -95,8 +97,11 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		aiTimer = aiTimer + delta;
+		GameScreen.delta  = delta;
 
+		updateTimers();
+		
+		aiTimer = aiTimer + delta;
 		camera.update();
 		// TODO: spriteBatch.setProjectionMatrix(camera.combined);
 
@@ -139,14 +144,30 @@ public class GameScreen implements Screen {
 		// TODO : renderSprites(this.spriteBatch);
 		// this.spriteBatch.end();
 
-		// CLear the canvas to avoid 'trail' effect
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// Clear the canvas to avoid 'trail' effect if the hack is no longer being applied
+		if(GameScreen.removeScreenClearTimer==0f){
+			Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		}
 
 		debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,
 				PIXELS_PER_METER, PIXELS_PER_METER));
 	}
 	
+	private synchronized void updateTimers() {
+		GameScreen.removeScreenClearTimer -= GameScreen.delta;
+		if(GameScreen.removeScreenClearTimer < 0f){
+			GameScreen.removeScreenClearTimer = 0f;
+		}
+		for(HockeyPlayer hp : hockeyPlayerList){
+			hp.disableSwordTimer -= GameScreen.delta;
+			if(hp.disableSwordTimer < 0f){
+				hp.disableSwordTimer = 0f;
+			}
+		}
+		
+	}
+
 	private void checkForDeaths()
 	{
 		List<SimpleAi> deathListAi = new ArrayList<SimpleAi>();

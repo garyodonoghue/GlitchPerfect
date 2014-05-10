@@ -15,7 +15,7 @@ public class HackEventManager
 	public static MCP moreControllers;
 	
 	//public static enum Hacks {removeScreenClear, disableSword, increaseEnemySpawnRate, increaseEnemySpeed, decreaseHumanSpeed, invertControls}
-	public static enum Hacks { increaseEnemySpeed, invertControls, increaseEnemySpawnRate, disableSword}
+	public static enum Hacks { increaseEnemySpeed, invertControls, increaseEnemySpawnRate, disableSword, removeScreenClear}
 	
 	public static void recievedHackEvent(String ratingStr, String id)
 	{
@@ -46,16 +46,32 @@ public class HackEventManager
 				leaveHeartbeatMessage("Increased Enemy Spawn rate", rating, id);
 				break;
 			case disableSword:
-				dsiablePlayerSword(rating);
+				disablePlayerSword(rating);
 				leaveHeartbeatMessage("Disabled player's sword", rating, id);
+				break;
+			case removeScreenClear:
+				removeScreenClear(rating);
+				leaveHeartbeatMessage("Removing screen clear", rating, id);
 				break;
 		}
 	}
 	
-	private static void dsiablePlayerSword(int rating) {
+	private static void removeScreenClear(int rating) {
+		if(GameScreen.removeScreenClearTimer > 0)
+		{
+			GameScreen.removeScreenClearTimer = GameScreen.removeScreenClearTimer + rating;
+		}
+		else
+		{
+			GameScreen.removeScreenClearTimer = rating;
+		}
+		
+	}
+
+	private static void disablePlayerSword(int rating) {
 		for(HockeyPlayer hp : GameScreen.hockeyPlayerList)
 		{
-			if(hp.disableSwordTimer > 0)
+			if(hp.disableSwordTimer > 0f)
 			{
 				hp.disableSwordTimer = hp.disableSwordTimer + rating;
 			}
