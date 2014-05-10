@@ -72,15 +72,16 @@ function sendRating(timeInMilliSeconds){
 
 function getRating(timeInMilliSeconds){
 	var starRating = 0;
-	if(timeInMilliSeconds < 1000){
+	var seconds = 3000;
+	if(timeInMilliSeconds < (seconds*0.40)){
 		starRating = 5;
-	}else if(timeInMilliSeconds < 1400){
+	}else if(timeInMilliSeconds < (seconds*0.60)){
 		starRating = 4;
-	}else if(timeInMilliSeconds < 1800){
+	}else if(timeInMilliSeconds < (seconds*0.75)){
 		starRating = 3;
-	}else if(timeInMilliSeconds < 2200){
+	}else if(timeInMilliSeconds < (seconds*0.90)){
 		starRating = 2;
-	}else if(timeInMilliSeconds < 2600){
+	}else if(timeInMilliSeconds < seconds){
 		starRating = 1;
 	}
 	return starRating;
