@@ -14,6 +14,7 @@ import com.ladinc.glitchperfect.core.controls.listeners.ouya.OuyaListener;
 import com.ladinc.glitchperfect.core.hacks.HackEventManager;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Identifier;
 import com.ladinc.mcp.MCP;
+import com.ladinc.mcp.RedirectOption;
 
 public class MyControllerManager {
 
@@ -34,12 +35,21 @@ public class MyControllerManager {
 		
 		setUpControls();
 		resetIdentifiers();
+		
+		setUpMCP();
 	}
 	
 	private void setUpMCP()
     {
     	moreControllers = MCP.tryCreateAndStartMCPWithPort(8888);
+    	
+    	//Clear redirectOptions
+    	moreControllers.redirectOptions.clear();
 
+    	//Add Our Page
+    	moreControllers.redirectOptions.add(new RedirectOption("glitchPerfectHacker", "Glitch Perfect Hacker"));
+
+    	moreControllers.customLinks.add("glitchPerfectHacker");
         
         ipAddr = moreControllers.getAddressForClients();
         if(ipAddr.equals(":8888"))
@@ -47,7 +57,7 @@ public class MyControllerManager {
         	ipAddr = "No Network";
         }
         
-        Gdx.app.log("Main-MCP", "Connection Address: " + ipAddr);
+        Gdx.app.error("Main-MCP", "Connection Address: " + ipAddr);
         
         HackEventManager.moreControllers = moreControllers;
     }
