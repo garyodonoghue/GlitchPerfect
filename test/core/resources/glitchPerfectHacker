@@ -51,7 +51,7 @@
 
 				if(obj.hasOwnProperty('message'))
 				{
-					clearInterval(myVar)
+					clearInterval(dotsTimer)
 					$("#message").html(obj.message);
 					assignNumbersToButtons();
 				}
@@ -73,7 +73,8 @@
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200) 
 					{
-						//Update Methods
+						clearInterval(dotsTimer)
+						$("#message").html("TEST");
 						assignNumbersToButtons();
 					}
 				}
