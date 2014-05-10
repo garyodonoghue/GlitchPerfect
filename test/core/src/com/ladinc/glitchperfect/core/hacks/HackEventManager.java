@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.json.simple.JSONObject;
 
+import com.badlogic.gdx.Gdx;
 import com.ladinc.glitchperfect.core.objects.AIPlayer;
 import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.screens.GameScreen;
@@ -33,10 +34,12 @@ public class HackEventManager
 			case increaseEnemySpeed:
 				increaseSpeedOfAI(rating);
 				leaveHeartbeatMessage("Increased Speed Of Enemy", rating, id);
+				Gdx.app.error("HackEventManager", "increaseEnemySpeed");
 				break;
 			case invertControls:
 				invertControlsOfHuman(rating);
 				leaveHeartbeatMessage("Inverted Controls of players", rating, id);
+				Gdx.app.error("HackEventManager", "invertControls");
 				break;
 		}
 	}
