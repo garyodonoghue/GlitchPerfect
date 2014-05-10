@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -62,6 +63,8 @@ public class GameScreen implements Screen {
 	public static Map<Integer, Vector2> listAIPositions;
 	public static float removeScreenClearTimer = 0f;
 	private static float delta = 0f;
+	
+	private boolean allDead = false;
 
 	public GameScreen(GlitchPerfectGame game) {
 		this.game = game;
@@ -89,6 +92,7 @@ public class GameScreen implements Screen {
 		this.debugRenderer = new Box2DDebugRenderer();
 		
 		font = new BitmapFont(Gdx.files.internal("Swis-721-50.fnt"), Gdx.files.internal("Swis-721-50.png"), false);
+		this.font.setColor(Color.WHITE);
 	}
 
 	private void createAIPlayer() {
@@ -115,7 +119,14 @@ public class GameScreen implements Screen {
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render(float delta) 
+	{
+		// Clear the canvas to avoid 'trail' effect if the hack is no longer being applied
+		if(GameScreen.removeScreenClearTimer==0f){
+			Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		}
+		
 		GameScreen.delta  = delta;
 
 		updateTimers();
@@ -137,6 +148,20 @@ public class GameScreen implements Screen {
 				if(cont.getStartPressed())
 				{
 					this.gameStarted = true;
+					break;
+				}
+				
+			}
+		}
+		
+		if(gameOver)
+		{
+			for(IControls cont : this.game.mcm.controls)
+			{
+				if(cont.getStartPressed())
+				{
+					
+					this.game.setScreen(new GameScreen(game));
 					break;
 				}
 				
@@ -175,7 +200,10 @@ public class GameScreen implements Screen {
 		world.clearForces();
 
 		 this.spriteBatch.begin();
-		 this.font.draw(spriteBatch, "Press Start To Begin Game", this.screenWidth/2 - this.font.getBounds("Press Start To Begin Game").width/2, this.screenHeight/2);
+		 if(!gameStarted)
+		 {
+			 this.font.draw(spriteBatch, "Press Start To Begin Game", this.screenWidth/2 - this.font.getBounds("Press Start To Begin Game").width/2, this.screenHeight/2);
+		 }
 		 
 		 if(SHOW_HACKED_TIMER > 0 )
 		 {
@@ -184,13 +212,9 @@ public class GameScreen implements Screen {
 			 this.font.draw(spriteBatch, HACKED_MESSAGE, this.screenWidth/2 - this.font.getBounds(HACKED_MESSAGE).width/2, this.screenHeight/2);
 		 }
 		 
+		 this.font.draw(spriteBatch, this.game.mcm.ipAddr, this.screenWidth/2 - this.font.getBounds(this.game.mcm.ipAddr).width/2, 1000);
+		 
 		 this.spriteBatch.end();
-
-		// Clear the canvas to avoid 'trail' effect if the hack is no longer being applied
-		if(GameScreen.removeScreenClearTimer==0f){
-			Gdx.gl.glClearColor(0f, 0f, 0f, 1);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		}
 
 		debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,
 				PIXELS_PER_METER, PIXELS_PER_METER));
