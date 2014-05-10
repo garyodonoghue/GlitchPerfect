@@ -22,3 +22,25 @@ span.stars, span.stars span {
 span.stars span {
     background-position: 0 0;
 }
+
+#message {
+	color: lime;
+	font-size: 2em;
+}
+
+#messageParent {
+	background:black;
+	height:10em;
+	width:100%;
+}
+
+#userRatingParent{
+	background:black;
+	height:10em;
+	width:100%;
+}
+
+#userRating {
+	color: lime;
+	font-size: 2em;
+}
