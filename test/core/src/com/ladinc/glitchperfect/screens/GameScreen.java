@@ -10,6 +10,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -43,9 +45,17 @@ public class GameScreen implements Screen {
 	private List<SimpleAi> AiList;
 	private float aiTimer;
 	
+	private SpriteBatch spriteBatch;
+	
+	private BitmapFont font;
+	
 	private boolean gameOver = false;
 	
 	private boolean gameStarted = false;
+	
+	public static float SHOW_HACKED_TIMER = 0f;
+	public static String HACKED_MESSAGE = "";
+	
 
 	private static final float GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE = 3.0f;
 	
@@ -66,6 +76,8 @@ public class GameScreen implements Screen {
 
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, this.screenWidth, this.screenHeight);
+		
+		spriteBatch = new SpriteBatch();
 
 		// Map used to reference the different spawning points for the AI
 		listAIPositions = new HashMap<Integer, Vector2>();
@@ -75,6 +87,8 @@ public class GameScreen implements Screen {
 		listAIPositions.put(4, new Vector2(187, 10));
 
 		this.debugRenderer = new Box2DDebugRenderer();
+		
+		font = new BitmapFont(Gdx.files.internal("Swis-721-50.fnt"), Gdx.files.internal("Swis-721-50.png"), false);
 	}
 
 	private void createAIPlayer() {
@@ -160,9 +174,17 @@ public class GameScreen implements Screen {
 		// world.step(1/60f, 3, 3);
 		world.clearForces();
 
-		// this.spriteBatch.begin();
-		// TODO : renderSprites(this.spriteBatch);
-		// this.spriteBatch.end();
+		 this.spriteBatch.begin();
+		 this.font.draw(spriteBatch, "Press Start To Begin Game", this.screenWidth/2 - this.font.getBounds("Press Start To Begin Game").width/2, this.screenHeight/2);
+		 
+		 if(SHOW_HACKED_TIMER > 0 )
+		 {
+			 SHOW_HACKED_TIMER = SHOW_HACKED_TIMER - delta;
+			 
+			 this.font.draw(spriteBatch, HACKED_MESSAGE, this.screenWidth/2 - this.font.getBounds(HACKED_MESSAGE).width/2, this.screenHeight/2);
+		 }
+		 
+		 this.spriteBatch.end();
 
 		// Clear the canvas to avoid 'trail' effect if the hack is no longer being applied
 		if(GameScreen.removeScreenClearTimer==0f){

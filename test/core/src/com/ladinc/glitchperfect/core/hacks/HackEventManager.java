@@ -36,26 +36,31 @@ public class HackEventManager
 				increaseSpeedOfAI(rating);
 				leaveHeartbeatMessage("Increased Speed Of Enemy", rating, id);
 				Gdx.app.error("HackEventManager", "increaseEnemySpeed");
+				setHackedMessage("Increased Speed Of Enemy", rating);
 				break;
 			case invertControls:
 				invertControlsOfHuman(rating);
 				leaveHeartbeatMessage("Inverted Controls of players", rating, id);
 				Gdx.app.error("HackEventManager", "invertControls");
+				setHackedMessage("Inverted Controls of players", rating);
 				break;
 			case increaseEnemySpawnRate:
 				increaseEnemySpawnRate(rating);
 				leaveHeartbeatMessage("Increased Enemy Spawn rate", rating, id);
 				Gdx.app.error("HackEventManager", "increaseEnemySpawnRate");
+				setHackedMessage("Increased Speed Of Enemy", rating);
 				break;
 			case disableSword:
 				disablePlayerSword(rating);
 				leaveHeartbeatMessage("Disabled player's sword", rating, id);
 				Gdx.app.error("HackEventManager", "disableSword");
+				setHackedMessage("Disabled player's sword", rating);
 				break;
 			case removeScreenClear:
 				removeScreenClear(rating);
 				leaveHeartbeatMessage("Removing screen clear", rating, id);
 				Gdx.app.error("HackEventManager", "removeScreenClear");
+				setHackedMessage("Removing screen clear", rating);
 				break;
 			case decreaseHumanSpeed:
 				decreaseHumanSpeed(rating);
@@ -155,6 +160,12 @@ public class HackEventManager
 		{
 			leaveHeartbeatMessage(message, 0, id);
 		}
+	}
+	
+	public static void setHackedMessage(String message, int rating)
+	{
+		GameScreen.SHOW_HACKED_TIMER = 3f;
+		GameScreen.HACKED_MESSAGE = message + " - " + rating + " stars.";
 	}
 
 }
