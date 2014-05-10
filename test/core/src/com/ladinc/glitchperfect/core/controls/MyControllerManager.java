@@ -11,6 +11,7 @@ import com.ladinc.glitchperfect.core.controls.listeners.KeyboardAndMouseListener
 import com.ladinc.glitchperfect.core.controls.listeners.ListenerForNewControllers;
 import com.ladinc.glitchperfect.core.controls.listeners.desktop.XboxListener;
 import com.ladinc.glitchperfect.core.controls.listeners.ouya.OuyaListener;
+import com.ladinc.glitchperfect.core.hacks.HackEventManager;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Identifier;
 import com.ladinc.mcp.MCP;
 
@@ -47,6 +48,8 @@ public class MyControllerManager {
         }
         
         Gdx.app.log("Main-MCP", "Connection Address: " + ipAddr);
+        
+        HackEventManager.moreControllers = moreControllers;
     }
 	
 	public void resetIdentifiers()

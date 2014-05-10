@@ -2,11 +2,14 @@ package com.ladinc.glitchperfect.core.controls.listeners;
 
 import java.util.Map;
 
+import com.ladinc.glitchperfect.core.hacks.HackEventManager;
 import com.ladinc.mcp.interfaces.MCPContorllersListener;
 
 public class MCPListenerClient implements  MCPContorllersListener
 {
 
+	
+	
 	@Override
 	public void analogMove(int arg0, String arg1, float arg2, float arg3) {
 		// TODO Auto-generated method stub
@@ -40,6 +43,8 @@ public class MCPListenerClient implements  MCPContorllersListener
 		if(params != null)
 		{
 			rating = params.get("rating");
+			
+			HackEventManager.recievedHackEvent(rating);
 		}
 		
 	}
