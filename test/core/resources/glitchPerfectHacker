@@ -73,9 +73,7 @@
 				{
 					if (xmlhttp.readyState==4 && xmlhttp.status==200) 
 					{
-						clearInterval(dotsTimer)
-						$("#message").html("TEST");
-						assignNumbersToButtons();
+						clearInterval(dotsTimer);
 					}
 				}
 				
