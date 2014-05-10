@@ -26,6 +26,8 @@ public class CollisionHelper implements ContactListener{
 //		this.fall = fall;
 //	}
 	
+	public Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
+	
 	public CollisionHelper()
 	{
 	}
@@ -57,20 +59,24 @@ public class CollisionHelper implements ContactListener{
         	if (checkIfCollisionIsOfCertainBodies(bodyAInfo, bodyBInfo, CollisionObjectType.Sword, CollisionObjectType.Enemy))
         	{
         		AIPlayer enemy;
-        		
+        		HockeyPlayer hp;
         		//Enemy has hit a sword
         		if(bodyAInfo.type == CollisionObjectType.Enemy)
         		{
         			enemy = (AIPlayer) bodyAInfo.object;
+        			hp = (HockeyPlayer) bodyBInfo.object;
         		}
         		else
         		{
         			enemy = (AIPlayer) bodyBInfo.object;
+        			hp = (HockeyPlayer) bodyAInfo.object;
         		}
         		
-        		enemy.toBeKilled = true;
-        		Sound sound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
-        		sound.play(1.0f);
+        		//if the hockey player's sword is disabled, dont kill the enemy
+    			if(hp.disableSwordTimer==0){
+    				enemy.toBeKilled = true;
+    				sound.play(1.0f);
+    			}
         	}
         	else if(checkIfCollisionIsOfCertainBodies(bodyAInfo, bodyBInfo, CollisionObjectType.Player, CollisionObjectType.Enemy))
         	{

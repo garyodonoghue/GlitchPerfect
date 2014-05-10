@@ -15,7 +15,7 @@ public class HackEventManager
 	public static MCP moreControllers;
 	
 	//public static enum Hacks {removeScreenClear, disableSword, increaseEnemySpawnRate, increaseEnemySpeed, decreaseHumanSpeed, invertControls}
-	public static enum Hacks { increaseEnemySpeed, invertControls}
+	public static enum Hacks { increaseEnemySpeed, invertControls, increaseEnemySpawnRate, disableSword}
 	
 	public static void recievedHackEvent(String ratingStr, String id)
 	{
@@ -41,9 +41,37 @@ public class HackEventManager
 				leaveHeartbeatMessage("Inverted Controls of players", rating, id);
 				Gdx.app.error("HackEventManager", "invertControls");
 				break;
+			case increaseEnemySpawnRate:
+				increaseEnemySpawnRate(rating);
+				leaveHeartbeatMessage("Increased Enemy Spawn rate", rating, id);
+				break;
+			case disableSword:
+				dsiablePlayerSword(rating);
+				leaveHeartbeatMessage("Disabled player's sword", rating, id);
+				break;
 		}
 	}
 	
+	private static void dsiablePlayerSword(int rating) {
+		for(HockeyPlayer hp : GameScreen.hockeyPlayerList)
+		{
+			if(hp.disableSwordTimer > 0)
+			{
+				hp.disableSwordTimer = hp.disableSwordTimer + rating;
+			}
+			else
+			{
+				hp.disableSwordTimer = rating;
+			}
+		}
+		
+	}
+
+	private static void increaseEnemySpawnRate(int rating) {
+		GameScreen.AI_CREATION_TIMER = GameScreen.AI_CREATION_TIMER / (3/(rating+1)); 
+		
+	}
+
 	private static void invertControlsOfHuman(int rating)
 	{
 		for(HockeyPlayer hp : GameScreen.hockeyPlayerList)

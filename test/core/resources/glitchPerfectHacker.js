@@ -18,6 +18,22 @@ var userSequence = [];
 
 var startTime = 0;
 
+var dotsTimer = setInterval(function(){
+	dotsTimerFunction();
+},700);
+
+var dots = 0;
+
+var userRatingVar = 0;
+var userRatingTimer = undefined;
+
+var zeroUserRatingString = "System.out.println('FAIL');";
+var oneUserRatingString = "int hacks = 10/0;";
+var twoUserRatingString = "int hacks = 10/0;";
+var threeUserRatingString = "int hacks = 10/0;";
+var fourUserRatingString = "int hacks = 10/0;";
+var fiveUserRatingString = "bool WIN = true;";
+
 $.fn.stars = function() {
     return $(this).each(function() {
         // Get the value
@@ -83,13 +99,44 @@ function sendRating(timeInMilliSeconds){
 	$("#rating").html(rating);
 	$('span.stars').stars();
 	$("#timeTaken").html(timeInMilliSeconds/1000);
+	setUserRatingTimeout(rating);
 	passEvent(rating);
+}
+
+function setUserRatingTimeout(){
+	userRatingVar = 0;
+	if(rating == 0){
+		userRatingString = zeroUserRatingString;
+	}else if(rating == 1){
+		userRatingString = oneUserRatingString;
+	}else if(rating == 2){
+		userRatingString = twoUserRatingString;
+	}else if(rating == 3){
+		userRatingString = threeUserRatingString;
+	}else if(rating == 4){
+		userRatingString = fourUserRatingString;
+	}else if(rating == 5){
+		userRatingString = fiveUserRatingString;
+	}
+	userRatingTimer = setInterval(function(){
+		userRatingTimerFunction();
+	},70);
+}
+
+function userRatingTimerFunction(){
+	if(userRatingVar > userRatingString.length){
+		userRatingVar = 0;
+		clearInterval(userRatingTimer);
+	}else{
+		$("#userRating").html(userRatingString.substring(0, userRatingVar));
+		userRatingVar++;
+	}
 }
 
 function getRating(timeInMilliSeconds){
 	var starRating = 0;
 	var seconds = 3000;
-	if(timeInMilliSeconds < (seconds*0.50)){
+	if(timeInMilliSeconds < (seconds*1.50)){
 		starRating = 5;
 	}else if(timeInMilliSeconds < (seconds*0.62)){
 		starRating = 4;
@@ -101,6 +148,19 @@ function getRating(timeInMilliSeconds){
 		starRating = 1;
 	}
 	return starRating;
+}
+
+function dotsTimerFunction() {
+	var dotString = "";
+	if(dots < 4){
+		for(var i = dots; i > 0; i--){
+			dotString = dotString + ".";
+		}
+	}else{
+		dots = 0;
+	}
+	$("#addDots").html(dotString);
+	dots++;
 }
 
 $(document).ready(function() {

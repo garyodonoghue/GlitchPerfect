@@ -31,6 +31,7 @@ public class HockeyPlayer {
 	float playerSize = 3f;
 
 	public float invertControlsTimer = 0f;
+	public float disableSwordTimer = 0f;
 	
 	private static int PIXELS_PER_METER = 10;
 

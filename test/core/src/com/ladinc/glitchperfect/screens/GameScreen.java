@@ -23,7 +23,7 @@ import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.core.objects.StartingPosition;
 
 public class GameScreen implements Screen {
-	private static final float AI_CREATION_RATE = 1;
+	public static float AI_CREATION_TIMER = 1;
 	private Box2DDebugRenderer debugRenderer;
 	private GlitchPerfectGame game;
 	// Used for sprites etc
@@ -125,8 +125,8 @@ public class GameScreen implements Screen {
 		
 		checkForDeaths();
 		
+		if (aiTimer >= AI_CREATION_TIMER && hockeyPlayerList.size()>0 && gameStarted) {
 
-		if (aiTimer >= AI_CREATION_RATE && hockeyPlayerList.size()>0 && gameStarted) {
 			createAIPlayer();
 			aiTimer = 0f;
 		}
