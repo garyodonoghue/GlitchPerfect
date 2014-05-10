@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.ladinc.glitchperfect.GlitchPerfectGame;
 import com.ladinc.glitchperfect.core.ai.SimpleAi;
+import com.ladinc.glitchperfect.core.collision.CollisionHelper;
 import com.ladinc.glitchperfect.core.controls.IControls;
 import com.ladinc.glitchperfect.core.objects.AIPlayer;
 import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
@@ -99,6 +100,9 @@ public class GameScreen implements Screen {
 		if (this.game.mcm.checkForNewControllers()) {
 			createPlayers();
 		}
+		
+		checkForDeaths();
+		
 
 		if (aiTimer >= AI_CREATION_RATE) {
 			createAIPlayer();
@@ -138,6 +142,28 @@ public class GameScreen implements Screen {
 
 		debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,
 				PIXELS_PER_METER, PIXELS_PER_METER));
+	}
+	
+	private void checkForDeaths()
+	{
+		List<SimpleAi> deathListAi = new ArrayList<SimpleAi>();
+		
+		if (AiList != null)
+		{
+			for(SimpleAi ai : AiList)
+			{
+				if(ai.player.toBeKilled)
+				{
+					deathListAi.add(ai);
+				}
+			}
+		}
+		
+		for(SimpleAi ai : deathListAi)
+		{
+			AiList.remove(ai);
+			world.destroyBody(ai.player.body);
+		}
 	}
 
 	@Override
@@ -183,6 +209,9 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		world = new World(new Vector2(0.0f, 0.0f), true);
+		
+		world.setContactListener(new CollisionHelper());
+		
 		createPlayers();
 	}
 

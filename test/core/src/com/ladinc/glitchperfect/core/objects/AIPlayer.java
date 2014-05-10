@@ -14,6 +14,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.ladinc.glitchperfect.core.collision.CollisionInfo;
+import com.ladinc.glitchperfect.core.collision.CollisionInfo.CollisionObjectType;
 import com.ladinc.glitchperfect.core.controls.IControls;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Identifier;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
@@ -22,7 +24,7 @@ import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
 
 public class AIPlayer {
 
-	private static final int SPEED_AI = 10;
+	public static float SPEED_AI = 10;
 
 	public static float playerSize = 2f;
 
@@ -43,6 +45,8 @@ public class AIPlayer {
 	private float power;
 
 	private OrthographicCamera camera;
+	
+	public boolean toBeKilled = false;
 
 	public AIPlayer(World world, int number, StartingPosition startPos,
 			IControls controller, OrthographicCamera camera) {
@@ -91,6 +95,8 @@ public class AIPlayer {
 		fixtureDef.shape = dynamicCircle;
 
 		this.body.createFixture(fixtureDef);
+		
+		this.body.setUserData(new CollisionInfo("", CollisionObjectType.Enemy, this));
 	}
 
 	public void updateSprite(SpriteBatch spriteBatch) {
