@@ -183,6 +183,11 @@ public class GameScreen implements Screen {
 			if(hp.disableSwordTimer < 0f){
 				hp.disableSwordTimer = 0f;
 			}
+			
+			hp.decreasePlayerSpeedValue -= GameScreen.delta;
+			if(hp.decreasePlayerSpeedValue < 0f){
+				hp.decreasePlayerSpeedValue = 0f;
+			}
 		}
 		
 	}

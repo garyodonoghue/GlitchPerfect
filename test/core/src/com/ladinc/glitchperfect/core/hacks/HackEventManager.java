@@ -15,7 +15,7 @@ public class HackEventManager
 	public static MCP moreControllers;
 	
 	//public static enum Hacks {removeScreenClear, disableSword, increaseEnemySpawnRate, increaseEnemySpeed, decreaseHumanSpeed, invertControls}
-	public static enum Hacks { increaseEnemySpeed, invertControls, increaseEnemySpawnRate, disableSword, removeScreenClear}
+	public static enum Hacks { increaseEnemySpeed, invertControls, increaseEnemySpawnRate, disableSword, removeScreenClear, decreaseHumanSpeed}
 	
 	public static void recievedHackEvent(String ratingStr, String id)
 	{
@@ -53,9 +53,29 @@ public class HackEventManager
 				removeScreenClear(rating);
 				leaveHeartbeatMessage("Removing screen clear", rating, id);
 				break;
+			case decreaseHumanSpeed:
+				decreaseHumanSpeed(rating);
+				leaveHeartbeatMessage("Decrease Human Speed", rating, id);
+				break;
 		}
 	}
 	
+	private static void decreaseHumanSpeed(int rating) {
+		int decreaseRate = rating*5;
+		for(HockeyPlayer hp : GameScreen.hockeyPlayerList)
+		{
+			if(hp.decreasePlayerSpeedValue > 0f)
+			{
+				hp.decreasePlayerSpeedValue = hp.decreasePlayerSpeedValue + decreaseRate;
+			}
+			else
+			{
+				hp.decreasePlayerSpeedValue = decreaseRate;
+			}
+		}
+		
+	}
+
 	private static void removeScreenClear(int rating) {
 		if(GameScreen.removeScreenClearTimer > 0)
 		{

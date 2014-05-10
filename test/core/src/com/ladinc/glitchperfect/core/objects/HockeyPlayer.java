@@ -28,6 +28,8 @@ import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
 
 public class HockeyPlayer {
 
+	public static final int USER_SPEED = 50;
+
 	float playerSize = 3f;
 
 	public float invertControlsTimer = 0f;
@@ -52,7 +54,7 @@ public class HockeyPlayer {
 
 	public Side side;
 
-	private float power;
+	public float power;
 
 	private OrthographicCamera camera;
 
@@ -227,8 +229,8 @@ public class HockeyPlayer {
 
 		Vector2 position = this.body.getWorldCenter();
 
-		this.body.setLinearVelocity(new Vector2(50 * movement.x,
-				50 * movement.y));
+		this.body.setLinearVelocity(new Vector2((USER_SPEED-decreasePlayerSpeedValue) * movement.x,
+				(USER_SPEED-decreasePlayerSpeedValue) * movement.y));
 
 		updateStick(delta, rotation, position);
 	}
@@ -247,6 +249,8 @@ public class HockeyPlayer {
 	private float movementSquareMax = 6f;
 	private Vector2 moveForce = new Vector2();
 	private Vector2 stickCenter = new Vector2();
+
+	public float decreasePlayerSpeedValue = 0f;
 
 	public void updateStick(float delta, Vector2 rotation,
 			Vector2 playerPosition) {
