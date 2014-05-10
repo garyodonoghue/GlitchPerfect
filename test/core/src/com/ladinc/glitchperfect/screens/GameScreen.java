@@ -107,7 +107,7 @@ public class GameScreen implements Screen {
 		checkForDeaths();
 		
 
-		if (aiTimer >= AI_CREATION_RATE) {
+		if (aiTimer >= AI_CREATION_RATE && hockeyPlayerList.size()>0) {
 			createAIPlayer();
 			aiTimer = 0f;
 		}
