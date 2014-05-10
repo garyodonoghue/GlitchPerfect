@@ -17,8 +17,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.ladinc.glitchperfect.core.controls.IControls;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Identifier;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
-//import com.ladinc.glitchperfect.core.utilities.GenericEnums.Identifier;
-//import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
 
 public class AIPlayer {
 
