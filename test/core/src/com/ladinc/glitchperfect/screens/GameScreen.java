@@ -116,7 +116,7 @@ public class GameScreen implements Screen {
 		if (AiList != null && GameScreen.hockeyPlayerList.size() != 0) {
 			for (SimpleAi ai : AiList) {
 				if (ai != null) {
-					ai.movementFollowPlayer(ai.player.body.getWorldCenter(),
+					ai.getMovementofAItowardsPlayer(ai.player.body.getWorldCenter(),
 							GameScreen.hockeyPlayerList.get(0).body
 									.getWorldCenter());
 

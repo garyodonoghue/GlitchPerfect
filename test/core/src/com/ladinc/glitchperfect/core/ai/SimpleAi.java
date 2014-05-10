@@ -43,30 +43,28 @@ public class SimpleAi implements
 		return false;
 	}
 
-	private Vector2 tempMovement = new Vector2();
-
-	public void movementFollowPlayer(Vector2 playerLocation,
-			Vector2 puckLocation) {
-		tempMovement.x = (-1)
-				* getMovementupToOne(playerLocation.x, puckLocation.x);
-
-		tempMovement.y = (-1)
-				* getMovementupToOne(playerLocation.y, puckLocation.y);
-
-		leftMovement = tempMovement;
-	}
-
-	private float getMovementupToOne(float ref, float target) {
-		float temp = (ref - target);
-
-		if (temp > 0.0f) {
-			if (temp > 1.0f)
-				temp = 1.0f;
-		} else {
-			if (temp < -1.0f)
-				temp = -1.0f;
+	public Vector2 getMovementofAItowardsPlayer(Vector2 aiLocation, Vector2 playerLocation) {
+		Vector2 temp = new Vector2(aiLocation.x - playerLocation.x, aiLocation.y - playerLocation.y);
+		if(Math.abs(temp.x) > Math.abs(temp.y)){
+			if(temp.x > 1){
+				temp.x = 1;
+				temp.y = temp.y/temp.x;
+			}
+			else{
+				temp.x = -1;
+				temp.y = temp.y/temp.x;
+			}
 		}
-
+		else{
+			if(temp.y > 1){
+				temp.y = 1;
+				temp.x = temp.x/temp.y;				
+			}
+			else{
+				temp.y = -1;
+				temp.x = temp.x/temp.y;
+			}
+		}
 		return temp;
 
 	}
