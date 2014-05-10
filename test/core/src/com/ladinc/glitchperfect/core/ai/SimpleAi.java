@@ -57,7 +57,7 @@ public class SimpleAi implements
 	}
 
 	private float getMovementupToOne(float ref, float target) {
-		float temp = (ref - target) / 10f;
+		float temp = (ref - target);
 
 		if (temp > 0.0f) {
 			if (temp > 1.0f)
