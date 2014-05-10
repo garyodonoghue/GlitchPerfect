@@ -91,4 +91,10 @@ public class SimpleAi implements
 		return null;
 	}
 
+	@Override
+	public boolean getStartPressed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

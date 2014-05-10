@@ -41,6 +41,10 @@ public class GameScreen implements Screen {
 	private World world;
 	private List<SimpleAi> AiList;
 	private float aiTimer;
+	
+	private boolean gameOver = false;
+	
+	private boolean gameStarted = false;
 
 	private static final float GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE = 3.0f;
 	
@@ -97,6 +101,8 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		aiTimer = aiTimer + delta;
 
+		
+		camera.zoom = 1.1f;
 		camera.update();
 		// TODO: spriteBatch.setProjectionMatrix(camera.combined);
 
@@ -104,10 +110,23 @@ public class GameScreen implements Screen {
 			createPlayers();
 		}
 		
+		if(!this.gameStarted)
+		{
+			for(IControls cont : this.game.mcm.controls)
+			{
+				if(cont.getStartPressed())
+				{
+					this.gameStarted = true;
+					break;
+				}
+				
+			}
+		}
+		
 		checkForDeaths();
 		
 
-		if (aiTimer >= AI_CREATION_RATE && hockeyPlayerList.size()>0) {
+		if (aiTimer >= AI_CREATION_RATE && hockeyPlayerList.size()>0 && gameStarted) {
 			createAIPlayer();
 			aiTimer = 0f;
 		}
@@ -150,6 +169,7 @@ public class GameScreen implements Screen {
 	private void checkForDeaths()
 	{
 		List<SimpleAi> deathListAi = new ArrayList<SimpleAi>();
+		List<HockeyPlayer> deathListHuman = new ArrayList<HockeyPlayer>();
 		
 		if (AiList != null)
 		{
@@ -167,6 +187,28 @@ public class GameScreen implements Screen {
 			AiList.remove(ai);
 			world.destroyBody(ai.player.body);
 		}
+		
+		for(HockeyPlayer hp : hockeyPlayerList)
+		{
+			if(hp.toBeKilled)
+			{
+				deathListHuman.add(hp);
+			}
+		}
+		
+		for(HockeyPlayer hp : deathListHuman)
+		{
+			hockeyPlayerList.remove(hp);
+			world.destroyBody(hp.stick);
+			world.destroyBody(hp.body);
+			
+			if(hockeyPlayerList.size() == 0 && gameStarted)
+			{
+				gameOver = true;
+			}
+		}
+		
+		
 	}
 
 	@Override
