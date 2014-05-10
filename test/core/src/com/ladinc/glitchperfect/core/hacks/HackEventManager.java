@@ -2,6 +2,8 @@ package com.ladinc.glitchperfect.core.hacks;
 
 import java.util.Random;
 
+import org.json.simple.JSONObject;
+
 import com.ladinc.glitchperfect.core.objects.AIPlayer;
 import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.screens.GameScreen;
@@ -14,26 +16,27 @@ public class HackEventManager
 	//public static enum Hacks {removeScreenClear, disableSword, increaseEnemySpawnRate, increaseEnemySpeed, decreaseHumanSpeed, invertControls}
 	public static enum Hacks { increaseEnemySpeed, invertControls}
 	
-	public static void recievedHackEvent(String ratingStr)
+	public static void recievedHackEvent(String ratingStr, String id)
 	{
 		int rating = 3;
 		rating = Integer.parseInt(ratingStr);
 		Random r = new Random();
 		Hacks hack = Hacks.values()[r.nextInt(Hacks.values().length)];
 		
-		applyHack(hack, rating);
+		applyHack(hack, rating, id);
 	}
 	
-	public static void applyHack(Hacks hack, int rating)
+	public static void applyHack(Hacks hack, int rating, String id)
 	{
-		increaseSpeedOfAI(rating);
 		switch(hack)
 		{
 			case increaseEnemySpeed:
 				increaseSpeedOfAI(rating);
+				leaveHeartbeatMessage("Increased Speed Of Enemy", rating, id);
 				break;
 			case invertControls:
 				invertControlsOfHuman(rating);
+				leaveHeartbeatMessage("Inverted Controls of players", rating, id);
 				break;
 		}
 	}
@@ -65,6 +68,14 @@ public class HackEventManager
 		{
 			AIPlayer.SPEED_AI = AIPlayer.SPEED_AI *((multi) * (rating / 5));
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static void leaveHeartbeatMessage(String message, int rating, String id)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("message", rating + " starts - " + message);
+		moreControllers.hearbeatResponses.put(id, obj);
 	}
 
 }

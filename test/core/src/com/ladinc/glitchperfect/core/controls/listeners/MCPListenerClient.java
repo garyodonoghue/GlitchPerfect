@@ -39,12 +39,14 @@ public class MCPListenerClient implements  MCPContorllersListener
 			Map<String, String> files) 
 	{
 		String rating;
+		String id;
 		
 		if(params != null)
 		{
 			rating = params.get("rating");
+			id = params.get("id");
 			
-			HackEventManager.recievedHackEvent(rating);
+			HackEventManager.recievedHackEvent(rating, id);
 		}
 		
 	}
