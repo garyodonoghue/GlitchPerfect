@@ -44,14 +44,17 @@ public class HackEventManager
 			case increaseEnemySpawnRate:
 				increaseEnemySpawnRate(rating);
 				leaveHeartbeatMessage("Increased Enemy Spawn rate", rating, id);
+				Gdx.app.error("HackEventManager", "increaseEnemySpawnRate");
 				break;
 			case disableSword:
 				disablePlayerSword(rating);
 				leaveHeartbeatMessage("Disabled player's sword", rating, id);
+				Gdx.app.error("HackEventManager", "disableSword");
 				break;
 			case removeScreenClear:
 				removeScreenClear(rating);
 				leaveHeartbeatMessage("Removing screen clear", rating, id);
+				Gdx.app.error("HackEventManager", "removeScreenClear");
 				break;
 		}
 	}
