@@ -51,9 +51,14 @@
 
 				if(obj.hasOwnProperty('message'))
 				{
-					clearInterval(dotsTimer)
-					$("#message").html(obj.message);
-					assignNumbersToButtons();
+					if(obj.message != "die"){
+						clearInterval(dotsTimer)
+						$("#message").html("Game Over - Player has died!");
+					}else{
+						clearInterval(dotsTimer)
+						$("#message").html(obj.message);
+						assignNumbersToButtons();
+					}
 				}
 			}
 
