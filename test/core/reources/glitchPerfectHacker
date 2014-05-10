@@ -1,0 +1,108 @@
+<html>
+	<head>
+		<title>More-Controllers-Please</title>
+		<link rel="stylesheet" href="jquery.mobile-1.3.2.min.css" />
+		<link rel="stylesheet" href="glitchPerfectHacker.css" />
+		
+		<script src="jquery-1.9.1.min.js"></script>
+		<script src="jquery.mobile-1.3.2.min.js"></script>
+
+		<script type="text/javascript" src="defaultController.js"></script>
+		<script type="text/javascript" src="KeyboardButton.js"></script>
+		<script type="text/javascript" src="PageHelper.js"></script>
+		<script type="text/javascript" src="glitchPerfectHacker.js"></script>
+	</head>
+
+	<body onLoad="initHeartbeat();">
+		<script type="text/javascript">
+
+			function initHeartbeat()
+			{
+				setInterval(sendHeartbeat, 1000);
+			}
+
+			function sendHeartbeat()
+			{
+				var url = "heartbeat?id=" + getId();
+
+				var xmlhttp
+				if (window.XMLHttpRequest)
+				{
+					xmlhttp=new XMLHttpRequest();
+				}
+
+				xmlhttp.open("GET",url,true);
+
+				xmlhttp.onreadystatechange = function()
+				{
+					if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+					{ 
+						handleHeartbeat(xmlhttp.responseText);
+					}
+				}
+
+				xmlhttp.send();
+			}
+
+			function handleHeartbeat(respText)
+			{
+				var obj = JSON.parse(respText);
+
+				if(obj.hasOwnProperty('redirect'))
+				{
+					window.location.href = obj.redirect + "?id=" + getId();
+				}
+			}
+
+			function startGame()
+			{
+				var url = "passEvent?rating="+getRating;
+
+				var xmlhttp
+				if (window.XMLHttpRequest)
+				{
+					xmlhttp=new XMLHttpRequest();
+				}
+
+				xmlhttp.open("GET", url, true);
+
+				xmlhttp.onreadystatechange = function()
+				{
+					if (xmlhttp.readyState==4 && xmlhttp.status==200) 
+					{ 
+						//When name is registered. redirect to wait screen
+						window.location.href = "gameScreen?id=" + getId();
+					}
+				}
+
+				xmlhttp.send();
+			}
+		</script>
+		<div data-role="page">
+			<div data-role="header">
+				<h1>MCP Poker - Wait Screen</h1>
+			</div>
+
+		   	<div data-role="content">	
+		   		<p id="codeTerminal" class="codeTerminal">Testing</p>
+		   		<fieldset class="ui-grid-d">
+		   			<div class=" ui-block-a">
+	   					<button type"button" id="userInput1" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
+	   				</div>
+	   				<div class=" ui-block-b">
+	   					<button type"button" id="userInput2" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
+	   				</div>
+	   				<div class=" ui-block-c">
+	   					<button type"button" id="userInput3" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
+	   				</div>
+	   				<div class=" ui-block-d">
+	   					<button type"button" id="userInput4" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
+	   				</div>
+	   				<div class=" ui-block-e">
+	   					<button type"button" id="userInput5" class="userButton" onclick="isCorrectButtonAndRemoveFromArray(this.id)" value="" ></button>
+	   				</div>
+		   		</fieldset>
+			</div>
+		</div>
+	</body>
+</html>
