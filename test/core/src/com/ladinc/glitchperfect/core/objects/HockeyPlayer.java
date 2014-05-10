@@ -18,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.MouseJoint;
 import com.badlogic.gdx.physics.box2d.joints.MouseJointDef;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
+import com.ladinc.glitchperfect.core.collision.CollisionInfo;
+import com.ladinc.glitchperfect.core.collision.CollisionInfo.CollisionObjectType;
 import com.ladinc.glitchperfect.core.controls.IControls;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Identifier;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
@@ -52,6 +54,8 @@ public class HockeyPlayer {
 	private OrthographicCamera camera;
 
 	private MouseJoint movementJoint;
+	
+	public boolean toBeKilled = false;
 
 	public HockeyPlayer(World world, int number, Side side,
 			IControls controller, StartingPosition startPos,
@@ -115,6 +119,8 @@ public class HockeyPlayer {
 		fixtureDef.shape = dynamicCircle;
 
 		this.body.createFixture(fixtureDef);
+		
+		this.body.setUserData(new CollisionInfo("", CollisionObjectType.Player, this));
 
 		createHockeyStick();
 
@@ -156,6 +162,8 @@ public class HockeyPlayer {
 		revoJoint.enableMotor = true;
 
 		world.createJoint(revoJoint);
+		
+		this.stick.setUserData(new CollisionInfo("", CollisionObjectType.Sword, this));
 
 	}
 

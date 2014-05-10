@@ -1,5 +1,7 @@
 package com.ladinc.glitchperfect.core.collision;
 
+import java.awt.MultipleGradientPaint.ColorSpaceType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -8,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.ladinc.glitchperfect.core.collision.CollisionInfo.CollisionObjectType;
+import com.ladinc.glitchperfect.core.objects.AIPlayer;
+import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
 
 public class CollisionHelper implements ContactListener{
@@ -49,7 +53,45 @@ public class CollisionHelper implements ContactListener{
         	
         	Gdx.app.debug("beginContact", "between " + bodyAInfo.type.toString() + " and " + bodyBInfo.type.toString());
         	
-        	
+        	if (checkIfCollisionIsOfCertainBodies(bodyAInfo, bodyBInfo, CollisionObjectType.Sword, CollisionObjectType.Enemy))
+        	{
+        		AIPlayer enemy;
+        		
+        		//Enemy has hit a sword
+        		if(bodyAInfo.type == CollisionObjectType.Enemy)
+        		{
+        			enemy = (AIPlayer) bodyAInfo.object;
+        		}
+        		else
+        		{
+        			enemy = (AIPlayer) bodyBInfo.object;
+        		}
+        		
+        		enemy.toBeKilled = true;
+        	}
+        	else if(checkIfCollisionIsOfCertainBodies(bodyAInfo, bodyBInfo, CollisionObjectType.Player, CollisionObjectType.Enemy))
+        	{
+        		AIPlayer enemy;
+        		HockeyPlayer player;
+        		
+        		//Enemy has hit a sword
+        		if(bodyAInfo.type == CollisionObjectType.Enemy)
+        		{
+        			enemy = (AIPlayer) bodyAInfo.object;
+        			player = (HockeyPlayer) bodyBInfo.object;
+        		}
+        		else
+        		{
+        			enemy = (AIPlayer) bodyBInfo.object;
+        			player = (HockeyPlayer) bodyAInfo.object;
+        		}
+        		
+        		if(!enemy.toBeKilled)
+        		{
+        			//Check if the enemy is already marked to be killed
+        			player.toBeKilled = true;
+        		}
+        	}
         }
         
 		
