@@ -8,9 +8,7 @@ public class CollisionInfo {
 	public String text;
 	public CollisionObjectType type;
 	
-	public HockeyPlayer player;
-	
-	public Side side;
+	public Object object;
 	
 	
 	public CollisionInfo(String text, CollisionObjectType type)
@@ -19,21 +17,14 @@ public class CollisionInfo {
 		this.type = type;
 	}
 	
-	public CollisionInfo(String text, CollisionObjectType type, Side side)
+	public CollisionInfo(String text, CollisionObjectType type, Object object)
 	{
 		this.text = text;		
 		this.type = type;
-		this.side = side;
+		this.object = object;
 	}
 	
-	public CollisionInfo(String text, CollisionObjectType type, HockeyPlayer player)
-	{
-		this.text = text;		
-		this.type = type;
-		this.player = player;
-	}
-	
-	public static enum CollisionObjectType{Rink, Goal, Player, ScoreZone, Puck};
+	public static enum CollisionObjectType{Wall, Sword, Player, Enemy};
 
 }
 

@@ -49,31 +49,15 @@ public class CollisionHelper implements ContactListener{
         	
         	Gdx.app.debug("beginContact", "between " + bodyAInfo.type.toString() + " and " + bodyBInfo.type.toString());
         	
-        	if((bodyAInfo.type == CollisionObjectType.ScoreZone && bodyBInfo.type == CollisionObjectType.Puck) || 
-        			(bodyAInfo.type == CollisionObjectType.Puck && bodyBInfo.type == CollisionObjectType.ScoreZone))
-        	{
-
-        		//Goal Scored
-        		Gdx.app.log("beginContact", "Goal Scored!");
-        		
-        		if(bodyAInfo.type == CollisionObjectType.ScoreZone)
-        			lastScore = bodyAInfo.side;
-        		else
-        			lastScore = bodyBInfo.side;
-        		
-        		newScore = true;
-        		
-        	}
-        	//Check for collision of two players
-        	if(bodyAInfo.type == CollisionObjectType.Player && bodyBInfo.type == CollisionObjectType.Player)
-        	{
-        		playerCollideIsDetected(bodyAInfo, bodyBInfo);
-        	}
-        	
         	
         }
         
 		
+	}
+	
+	public static boolean checkIfCollisionIsOfCertainBodies(CollisionInfo bodyAInfo, CollisionInfo bodyBInfo, CollisionObjectType type1, CollisionObjectType type2)
+	{
+		return (bodyAInfo.type == type1 && bodyBInfo.type == type2) || (bodyAInfo.type == type2 && bodyBInfo.type == type1);
 	}
 		
 	private void playerCollideIsDetected(CollisionInfo bodyA, CollisionInfo bodyB)

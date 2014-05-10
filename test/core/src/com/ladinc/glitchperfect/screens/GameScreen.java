@@ -17,7 +17,6 @@ import com.ladinc.glitchperfect.GlitchPerfectGame;
 import com.ladinc.glitchperfect.core.ai.SimpleAi;
 import com.ladinc.glitchperfect.core.controls.IControls;
 import com.ladinc.glitchperfect.core.objects.AIPlayer;
-import com.ladinc.glitchperfect.core.objects.BoxProp;
 import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.core.objects.StartingPosition;
 
@@ -33,9 +32,6 @@ public class GameScreen implements Screen {
 	private float worldWidth;
 	private float worldHeight;
 	private static int PIXELS_PER_METER = 10;
-
-	private static final float GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE = 6.5f;
-	private static final float GAP_BETWEEN_SIDEWALL_AND_EDGE = 10.5f;
 
 	private Vector2 center;
 	private OrthographicCamera camera;
@@ -187,14 +183,6 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		world = new World(new Vector2(0.0f, 0.0f), true);
-
-		new BoxProp(world, screenWidth, 1, new Vector2(10,
-				GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE)); // bottom
-		new BoxProp(world, screenWidth, 1, new Vector2(screenWidth / 2, 67)); // top
-
-		new BoxProp(world, 1, screenHeight, new Vector2(3, screenHeight / 2));// left
-		new BoxProp(world, 1, screenHeight, new Vector2(125, screenHeight / 2)); // right
-
 		createPlayers();
 	}
 
