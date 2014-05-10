@@ -30,6 +30,8 @@ public class HockeyPlayer {
 
 	float playerSize = 3f;
 
+	public float invertControlsTimer = 0f;
+	
 	private static int PIXELS_PER_METER = 10;
 
 	private float stickPower = 5000f;
@@ -215,11 +217,15 @@ public class HockeyPlayer {
 				"Movement: x=" + String.valueOf(movement.x) + " y="
 						+ String.valueOf(movement.y));
 
-		Vector2 forceVector = new Vector2(this.power * movement.x, this.power
-				* movement.y);
+		if(invertControlsTimer > 0f)
+		{
+			invertControlsTimer = invertControlsTimer - delta;
+			movement.x = movement.x * (-1);
+			movement.y = movement.y * (-1);
+		}
+
 		Vector2 position = this.body.getWorldCenter();
-		// this.body.applyForce(this.body.getWorldVector(new
-		// Vector2(forceVector.x, forceVector.y)), position, true );
+
 		this.body.setLinearVelocity(new Vector2(50 * movement.x,
 				50 * movement.y));
 

@@ -1,0 +1,13 @@
+#codeTerminal{
+	width:100%;
+	border: black;
+}
+
+.green span{
+	background: green !important;
+	color: black !important;
+}
+
+.userInput span{
+	font-size: 2em !important;
+}
