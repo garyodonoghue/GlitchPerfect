@@ -133,8 +133,17 @@ public class HackEventManager
 	}
 	
 	private static void increaseSpeedOfAI(int rating)
-	{
+	{ 
 		int multi = 2;
+		
+		if(GameScreen.AI_SPEED_INCREASED_TIMER > 0f)
+		{
+			GameScreen.AI_SPEED_INCREASED_TIMER = GameScreen.AI_SPEED_INCREASED_TIMER + rating;
+		}
+		else
+		{
+			GameScreen.AI_SPEED_INCREASED_TIMER = rating;
+		}
 		
 		if(rating == 0)
 		{

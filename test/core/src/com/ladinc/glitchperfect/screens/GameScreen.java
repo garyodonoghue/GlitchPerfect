@@ -59,6 +59,7 @@ public class GameScreen implements Screen {
 	
 
 	private static final float GAP_BETWEEN_TOPBOTTOMWALL_AND_EDGE = 3.0f;
+	public static float AI_SPEED_INCREASED_TIMER = 0;
 	
 	public static Map<Integer, Vector2> listAIPositions;
 	public static float removeScreenClearTimer = 0f;
@@ -233,6 +234,15 @@ public class GameScreen implements Screen {
 		}
 		else if(GameScreen.AI_CREATION_RATE < 1){
 			GameScreen.AI_CREATION_RATE += GameScreen.delta;
+		}
+		
+		//return the speed to its normal value (10f) when the timer reaches 0
+		if(GameScreen.AI_SPEED_INCREASED_TIMER > 0f){
+			GameScreen.AI_SPEED_INCREASED_TIMER -= GameScreen.delta;
+		}
+		else if(GameScreen.AI_SPEED_INCREASED_TIMER < 0f){
+			GameScreen.AI_SPEED_INCREASED_TIMER = 0f;
+			AIPlayer.SPEED_AI = AIPlayer.DEFAULT_SPEED_AI;
 		}
 		
 		for(HockeyPlayer hp : hockeyPlayerList){

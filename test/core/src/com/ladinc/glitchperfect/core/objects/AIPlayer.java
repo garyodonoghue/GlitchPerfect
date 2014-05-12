@@ -25,7 +25,7 @@ import com.ladinc.glitchperfect.core.utilities.GenericEnums.Side;
 public class AIPlayer {
 
 	public static float SPEED_AI = 10;
-
+	public static float DEFAULT_SPEED_AI = 10;
 	public static float playerSize = 2f;
 
 	private static int PIXELS_PER_METER = 10;
@@ -113,8 +113,6 @@ public class AIPlayer {
 				"Movement: x=" + String.valueOf(movement.x) + " y="
 						+ String.valueOf(movement.y));
 
-		// this.body.applyForce(this.body.getWorldVector(new
-		// Vector2(forceVector.x, forceVector.y)), position, true );
 		this.body.setLinearVelocity(new Vector2(SPEED_AI * movement.x, SPEED_AI
 				* movement.y));
 	}
