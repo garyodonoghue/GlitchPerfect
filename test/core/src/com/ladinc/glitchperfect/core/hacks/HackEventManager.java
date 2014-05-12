@@ -113,7 +113,7 @@ public class HackEventManager
 	}
 
 	private static void increaseEnemySpawnRate(int rating) {
-		GameScreen.AI_CREATION_TIMER = GameScreen.AI_CREATION_TIMER / (3/(rating+1)); 
+		GameScreen.AI_CREATION_RATE = GameScreen.AI_CREATION_RATE / (3/(rating+1)); 
 		
 	}
 

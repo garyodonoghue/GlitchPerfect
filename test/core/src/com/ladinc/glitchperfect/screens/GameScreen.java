@@ -27,7 +27,7 @@ import com.ladinc.glitchperfect.core.objects.HockeyPlayer;
 import com.ladinc.glitchperfect.core.objects.StartingPosition;
 
 public class GameScreen implements Screen {
-	public static float AI_CREATION_TIMER = 1;
+	public static float AI_CREATION_RATE = 1;
 	private Box2DDebugRenderer debugRenderer;
 	private GlitchPerfectGame game;
 	// Used for sprites etc
@@ -170,7 +170,7 @@ public class GameScreen implements Screen {
 		
 		checkForDeaths();
 		
-		if (aiTimer >= AI_CREATION_TIMER && hockeyPlayerList.size()>0 && gameStarted) {
+		if (aiTimer >= AI_CREATION_RATE && hockeyPlayerList.size()>0 && gameStarted) {
 
 			createAIPlayer();
 			aiTimer = 0f;
@@ -225,6 +225,16 @@ public class GameScreen implements Screen {
 		if(GameScreen.removeScreenClearTimer < 0f){
 			GameScreen.removeScreenClearTimer = 0f;
 		}
+		
+		//for the rate of enemy spawning, the rate could be above or below 1, 
+		//either way we want to gradually bring the spawning rate back to 1 (default)
+		if(GameScreen.AI_CREATION_RATE > 1){
+			GameScreen.AI_CREATION_RATE -= GameScreen.delta;
+		}
+		else if(GameScreen.AI_CREATION_RATE < 1){
+			GameScreen.AI_CREATION_RATE += GameScreen.delta;
+		}
+		
 		for(HockeyPlayer hp : hockeyPlayerList){
 			hp.disableSwordTimer -= GameScreen.delta;
 			if(hp.disableSwordTimer < 0f){
